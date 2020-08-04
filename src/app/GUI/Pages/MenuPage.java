@@ -1,4 +1,4 @@
-package app.frontendGUI.Pages;
+package app.GUI.Pages;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,8 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import app.App;
-import app.frontendGUI.GUI;
-import app.frontendGUI.GUIPage;
+import app.GUI.GUI;
+import app.GUI.GUIPage;
 
 public class MenuPage extends GUIPage {
 
@@ -35,13 +35,9 @@ public class MenuPage extends GUIPage {
     @Override
     public void actionPerformed(Object obj, GUI main) {
         if (obj.equals(this.components[1].component)) {
-            this.panel.setVisible(false);
-            main.switchToPage(App.ADD_DATA);
-            main.setComponentSizeAndLocation();
+            prepareAndSwitchToPage(App.ADD_DATA, main);
         }   else if(obj.equals(this.components[2].component)) {
-            this.panel.setVisible(false);
-            main.switchToPage(App.VIEW_DATA);
-            main.setComponentSizeAndLocation();
+            prepareAndSwitchToPage(App.VIEW_DATA, main);
         }
     }
 

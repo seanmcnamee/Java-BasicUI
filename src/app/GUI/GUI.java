@@ -1,4 +1,4 @@
-package app.frontendGUI;
+package app.GUI;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -6,10 +6,13 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowEvent;
 
 /**
  * GUI
@@ -26,10 +29,12 @@ public class GUI implements ComponentListener, ActionListener {
 
     public GUI(GUIPage... pages) {
         this.pages = pages;
-        setupPageListeners();
+    }
+
+    public void start() {
+        setupPages();
         setupGUI();
         
-
         frame.setVisible(true);
     }
 
@@ -71,21 +76,36 @@ public class GUI implements ComponentListener, ActionListener {
         System.out.println(
                 "frame size: " + frame.getContentPane().getWidth() + ", " + frame.getContentPane().getHeight());
 
-        frame.addComponentListener(this);
+        addListeners();
         //frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
-        switchToPage(0);
+        switchToAndReturnPage(0);
+    }
+
+    private void addListeners() {
+        frame.addComponentListener(this);
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowClosing(WindowEvent e) {}
+            public void windowOpened(WindowEvent e) {}
+            public void windowClosed(WindowEvent e) {}
+            public void windowIconified(WindowEvent e) {}
+            public void windowDeiconified(WindowEvent e) {}
+            public void windowActivated(WindowEvent e) {}
+            public void windowDeactivated(WindowEvent e) {}
+        });
     }
 
     // May have a problem with having too much of a panel on something
-    public void switchToPage(int pageNumber) {
+    public GUIPage switchToAndReturnPage(int pageNumber) {
         currentPage = this.pages[pageNumber];
         frame.add(currentPage.getPanel());
         
         currentPage.getPanel().setVisible(true);
+        return currentPage;
     }
 
-    private void setupPageListeners() {
+    private void setupPages() {
         for (GUIPage page : this.pages) {
             page.setButtonListeners(this);
             page.panel.setVisible(false);
@@ -126,20 +146,17 @@ public class GUI implements ComponentListener, ActionListener {
 
     @Override
     public void componentMoved(ComponentEvent e) {
-        // TODO Auto-generated method stub
         // System.out.println("Moved");
     }
 
     @Override
     public void componentShown(ComponentEvent e) {
-        // TODO Auto-generated method stub
         System.out.println("Shown");
 
     }
 
     @Override
     public void componentHidden(ComponentEvent e) {
-        // TODO Auto-generated method stub
         System.out.println("Hidden");
     }
 

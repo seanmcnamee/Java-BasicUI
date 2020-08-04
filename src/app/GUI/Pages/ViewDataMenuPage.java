@@ -1,4 +1,4 @@
-package app.frontendGUI.Pages;
+package app.GUI.Pages;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,11 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import app.App;
-import app.frontendGUI.GUI;
-import app.frontendGUI.GUIPage;
-public class ViewDataPage extends GUIPage {
+import app.GUI.GUI;
+import app.GUI.GUIPage;
+public class ViewDataMenuPage extends GUIPage {
     
-    public ViewDataPage() {
+    public ViewDataMenuPage() {
         super();
         this.panel.setBackground(Color.GRAY);
     }
@@ -44,10 +44,7 @@ public class ViewDataPage extends GUIPage {
     public void actionPerformed(Object obj, GUI main) {
         if (obj.equals(this.components[this.components.length-1].component)) {
             System.out.println("Back to menu page");
-            this.panel.setVisible(false);
-            main.switchToPage(App.MENU);
-            main.setComponentSizeAndLocation();
-            
+            prepareAndSwitchToPage(App.MENU, main);
         }
     }
 }
