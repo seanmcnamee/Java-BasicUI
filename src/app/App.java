@@ -10,5 +10,6 @@ public class App {
     public static void main(String[] args) throws Exception {
         GUI g = new GUI(new MenuPage(), new AddDataMenuPage(), new ViewDataMenuPage());
         System.out.println("Hello Java");
+        g.start();
     }
 }
